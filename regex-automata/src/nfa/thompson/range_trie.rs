@@ -296,7 +296,7 @@ impl RangeTrie {
         assert!(!ranges.is_empty());
         assert!(ranges.len() <= 4);
 
-        let mut stack = std::mem::take(&mut self.insert_stack);
+        let mut stack = core::mem::replace(&mut self.insert_stack, vec![]);
         stack.clear();
 
         stack.push(NextInsert::new(ROOT, ranges));
