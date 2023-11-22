@@ -460,10 +460,12 @@ impl<'a> Repr<'a> {
     ///
     /// If this state is not a match state, then this always returns 0.
     fn match_len(&self) -> usize {
-        match (self.is_match(), self.has_pattern_ids()) {
-            (false, _) => 0,
-            (true, false) => 1,
-            (true, true) => self.encoded_pattern_len(),
+        if !self.is_match() {
+            0
+        } else if !self.has_pattern_ids() {
+            1
+        } else {
+            self.encoded_pattern_len()
         }
     }
 
